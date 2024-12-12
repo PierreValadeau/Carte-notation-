@@ -4,7 +4,7 @@ const submitButton = document.getElementById('submit-button');
 const feedbackMessage = document.getElementById('feedback-message');
 const resetButton = document.getElementById('reset-button');
 
-// Créer 5 étoiles
+// Create 5 stars
 for (let i = 1; i <= 5; i++) {
   const star = document.createElement('span');
   star.textContent = '★';
@@ -13,56 +13,56 @@ for (let i = 1; i <= 5; i++) {
   starsContainer.appendChild(star);
 }
 
-// Gestion des clics sur les étoiles
+// Handle star click events
 let selectedRating = 0;
 starsContainer.addEventListener('click', (event) => {
   if (event.target.classList.contains('star')) {
     const rating = parseInt(event.target.dataset.value);
     selectedRating = rating;
 
-    // Mettre à jour les étoiles sélectionnées
+    // Update the appearance of selected stars
     updateStars(rating);
 
-    // Activer le bouton
+    // Enable the submit button
     submitButton.disabled = false;
   }
 });
 
-// Gestion du survol des étoiles
+// Handle mouseover on stars
 starsContainer.addEventListener('mouseover', (event) => {
   if (event.target.classList.contains('star')) {
     const hoverRating = parseInt(event.target.dataset.value);
 
-    // Mettre à jour les étoiles en fonction du survol
+    // Temporarily update stars based on hover
     updateStars(hoverRating);
   }
 });
 
-// Réinitialiser l'effet au survol lorsque la souris quitte les étoiles
+// Reset star appearance when the mouse leaves
 starsContainer.addEventListener('mouseout', () => {
-  // Restaurer les étoiles sélectionnées ou tout désélectionner si aucune note
+  // Restore the selected stars or clear all if no rating is selected
   updateStars(selectedRating);
 });
 
-// Gestion du clic sur le bouton "Soumettre"
+// Handle click on the "Submit" button
 submitButton.addEventListener('click', () => {
   feedbackMessage.textContent = `Merci pour votre évaluation de ${selectedRating} étoile(s) !`;
   feedbackMessage.classList.remove('hidden');
 });
 
-// Gestion du clic sur le bouton "Reset"
+// Handle click on the "Reset" button
 resetButton.addEventListener('click', () => {
-  // Réinitialiser les étoiles
+  // Reset all stars
   updateStars(0);
 
-  // Réinitialiser les variables et les états
+  // Reset variables and states
   selectedRating = 0;
   submitButton.disabled = true;
   feedbackMessage.textContent = '';
   feedbackMessage.classList.add('hidden');
 });
 
-// Fonction pour mettre à jour l'affichage des étoiles
+// Function to update star appearance
 function updateStars(rating) {
   document.querySelectorAll('.star').forEach((star, index) => {
     star.classList.toggle('selected', index < rating);
